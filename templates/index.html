@@ -1,0 +1,150 @@
+<html>
+    <head>
+        <title>
+            Object Detection
+        </title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+{#        <link href={{ url_for(cssname) }} rel="stylesheet">#}
+        <style>
+            /* .btn-file {
+                    position: relative;
+                    overflow: hidden;
+                } */
+                .btn-file input[type=file] {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    min-width: 100%;
+                    min-height: 100%;
+                    font-size: 100px;
+                    text-align: right;
+                    filter: alpha(opacity=0);
+                    opacity: 0;
+                    outline: none;
+                    background: white;
+                    cursor: inherit;
+                    display: block;
+                }
+
+                body {
+                    margin-top: 15%;
+                    background-color : #ffffff;
+                    /* margin: 0; */
+                    /* padding: 0; */
+                    font-size: 30px;
+                }
+                .h {
+                    color : #000000;
+                    text-align : center;
+                    font-family: "SIMPSON";
+                }
+                form {
+                    width: 300px;
+                    margin: 0 auto;
+
+                }
+
+                /* label 
+                {
+                    text-align: center;
+                } */
+
+                .bro{
+                    margin: 0 ;
+                    /* margin-left: 50%; */
+                }
+                #img-upload{
+                    width: 100%;
+                }
+        </style>
+
+    </head>
+
+    <body>
+    
+    <h1 class="h">
+        Object Detection and Semantic Segmentation
+    </h1>
+    
+        <form method="post" class="h" action="/predict" enctype="multipart/form-data">
+            <label>Upload Image</label><br>
+            <div class="input-group">
+            <span class="input-group-btn">
+                <span class="btn btn-default btn-file">
+                    Browse… <input type="file" name="file">
+                </span>
+            </span>
+            <input type="text" class="form-control" readonly>
+        </div>
+        <br>
+            <input class="btn btn-primary" type="submit" value="Submit">
+        
+            <!-- <div class="container">
+                 <div class = "col-md-4"></div> 
+                <div class="col-md-6">
+                    <div class="form-group bro">
+                        <label>Upload Image</label>
+                        <div class="input-group bro">
+                            <span class="input-group-btn">
+                                <span class="btn btn-default btn-file">
+                                    Browse… <input type="file" name="file">
+                                </span>
+                            </span>
+                            <input type="text" class="form-control" readonly>
+                        </div>
+                        <img id='img-upload'/>
+                    </div>
+                    <p>
+                        <input class="btn btn-primary" type="submit" value="Submit">
+                    </p>
+                </div>
+                
+            </div>
+
+                -->
+
+        </form>
+        
+    </body>
+
+<script>
+            $(document).ready( function() {
+    	$(document).on('change', '.btn-file :file', function() {
+		var input = $(this),
+			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+		input.trigger('fileselect', [label]);
+		});
+
+		$('.btn-file :file').on('fileselect', function(event, label) {
+
+		    var input = $(this).parents('.input-group').find(':text'),
+		        log = label;
+
+		    if( input.length ) {
+		        input.val(log);
+		    } else {
+		        if( log ) alert(log);
+		    }
+
+		});
+		function readURL(input) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+
+		        reader.onload = function (e) {
+		            $('#img-upload').attr('src', e.target.result);
+		        }
+
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+
+		$("#imgInp").change(function(){
+		    readURL(this);
+		});
+	});
+        </script>
+
+</html>
